@@ -6,7 +6,7 @@ import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
 
 const Navbar = props => {
-  const { isEmpty } = props.auth;
+  const { auth } = props;
 
   return (
     <nav className="nav-wrapper grey darken-3">
@@ -14,7 +14,7 @@ const Navbar = props => {
         <Link to="/" className="brand-logo">
           ProjectsArchive
         </Link>
-        {isEmpty ? <SignedOutLinks /> : <SignedInLinks />}
+        {auth.isEmpty ? <SignedOutLinks /> : <SignedInLinks />}
       </div>
     </nav>
   );
