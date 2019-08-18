@@ -1,17 +1,27 @@
 const initState = {
-  projects: [{ id: '1', title: 'Official Project', content: 'asd asd asd asd asd asd asd asd asd' }, { id: '2', title: 'My First Project', content: 'asd asd asd asd asd asd asd asd asd' }, { id: '3', title: 'Smart Project', content: 'asd asd asd asd asd asd asd asd asd' }]
+  isLoading: true,
+  isCreating: false
 };
 
 const projectReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'CREATE_PROJECT':
-      console.log('created project', action.project);
+    case "CREATE_PROJECT":
+      console.log("Created project", action.project);
+      return {
+        ...state,
+        isLoading: false
+      };
+    case "CREATE_PROJECT_ERROR":
+      console.log("Creating project gives an error: ", action.err);
       return state;
-    case 'CREATE_PROJECT_ERROR':
-      console.log('Creating project gives an error: ', action.err);
-      return state;
+    case "CREATE_PROJECT_LOADING":
+      console.log("Creating a project...");
+      return {
+        ...state,
+        isCreating: true
+      };
     default:
-      return state;
+      return { ...state, isLoading: true, isCreating: false };
   }
 };
 

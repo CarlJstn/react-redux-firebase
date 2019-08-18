@@ -6,7 +6,7 @@ import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
 
 const Navbar = props => {
-  const { auth } = props;
+  const { auth, profile } = props;
 
   return (
     <nav className="nav-wrapper grey darken-3">
@@ -14,15 +14,22 @@ const Navbar = props => {
         <Link to="/" className="brand-logo">
           ProjectsArchive
         </Link>
-        {auth.isEmpty ? <SignedOutLinks /> : <SignedInLinks />}
+        {auth.isEmpty ? (
+          <SignedOutLinks />
+        ) : (
+          <SignedInLinks profile={profile} />
+        )}
       </div>
     </nav>
   );
 };
 
 const mapStateToProps = state => {
+  console.log(state);
+
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   };
 };
 

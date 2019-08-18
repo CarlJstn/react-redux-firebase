@@ -6,7 +6,8 @@ import { Redirect } from "react-router-dom";
 class CreateProject extends Component {
   state = {
     title: "",
-    content: ""
+    content: "",
+    error: ""
   };
 
   handleChange = e => {
@@ -15,14 +16,24 @@ class CreateProject extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createProject(this.state);
+    const { title, content } = this.state;
+    if (title === "") {
+      this.setState({ error: "Title cannot be empty" });
+    } else if (content === "") {
+      this.setState({ error: "Content cannot be empty" });
+    } else this.props.createProject(this.state);
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, isLoading, isCreating } = this.props;
+    const { error } = this.state;
 
     if (auth.isEmpty) {
       return <Redirect to="/signin" />;
+    }
+
+    if (!isLoading) {
+      return <Redirect to="/" />;
     }
 
     return (
@@ -42,7 +53,17 @@ class CreateProject extends Component {
             />
           </div>
           <div className="input-field">
-            <button className="btn blue lighten-1 z-depth-0">Create</button>
+            {isCreating ? (
+              <button className="btn blue lighten-1 z-depth-0" disabled>
+                Creating....
+              </button>
+            ) : (
+              <button className="btn blue lighten-1 z-depth-0">Create</button>
+            )}
+
+            <div className="red-text center">
+              {error === "" ? null : <p>{error}</p>}
+            </div>
           </div>
         </form>
       </div>
@@ -51,8 +72,12 @@ class CreateProject extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
+
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    isLoading: state.project.isLoading,
+    isCreating: state.project.isCreating
   };
 };
 
