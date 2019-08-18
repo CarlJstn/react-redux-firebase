@@ -1,9 +1,19 @@
-import React from 'react';
+import React from "react";
 
 const Notifications = () => {
   return (
-    <div>
-      <p>Notifications</p>
+    <div className="section">
+      <div className="card z-depth-0">
+        <div className="card-content">
+          <span className="card-title">Notificaions</span>
+          <ul className="notifications">
+            <li>Notification 1</li>
+            <li>Notification 2</li>
+            <li>Notification 3</li>
+            <li>Notification 4</li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
