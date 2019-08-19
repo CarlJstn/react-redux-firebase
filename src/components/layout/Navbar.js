@@ -11,8 +11,12 @@ const Navbar = props => {
   return (
     <nav className="nav-wrapper grey darken-3">
       <div className="container">
-        <Link to="/" className="brand-logo">
-          ProjectsArchive
+        <Link to="/" className="brand-logo hide-on-med-and-down">
+          Projects<b className="blue-text">Archive</b>
+        </Link>
+
+        <Link to="/" className="brand-logo left hide-on-large-only">
+          P<b className="blue-text">A</b>
         </Link>
         {auth.isEmpty ? (
           <SignedOutLinks />
